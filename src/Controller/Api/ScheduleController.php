@@ -75,7 +75,6 @@ class ScheduleController extends AbstractController
 
         /** @var ScheduleDTO $dto */
         $dto = $form->getData();
-dump($dto);die;
         $schedule = new Schedule();
         $schedule->setCourier($dto->getCourier());
         $schedule->setCity($dto->getCity());
