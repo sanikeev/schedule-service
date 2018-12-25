@@ -28,11 +28,11 @@ class ScheduleRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('e');
         return $qb->where('e.courier = :courier')
-            ->andWhere('e.startedAt <= :date')
-            ->andWhere('e.endedAt >= :date')
+            ->andWhere('e.startedAt <= :started_at')
+            ->andWhere('e.endedAt >= :started_at')
             ->setParameters([
                 'courier' => $courier,
-                'date' => $date,
+                'started_at' => $date,
             ])
             ->setMaxResults(1)
             ->getQuery()
@@ -50,7 +50,7 @@ class ScheduleRepository extends ServiceEntityRepository
             ->andWhere('e.endedAt <= :endDate')
             ->setParameter('start', $start->format('Y-m-d'))
             ->setParameter('endDate', $end->format('Y-m-d'))
-            ->orderBy('e.startedAt', 'asc')
+            ->orderBy('e.endedAt', 'desc')
             ->setMaxResults($maxResults)
             ->setFirstResult($offset)
             ->getQuery()

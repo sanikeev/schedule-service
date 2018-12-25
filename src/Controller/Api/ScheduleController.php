@@ -67,7 +67,7 @@ class ScheduleController extends AbstractController
     public function create(Request $request)
     {
         $form = $this->createForm(ScheduleType::class);
-        $form->submit(json_decode($request->getContent()), true);
+        $form->submit(json_decode($request->getContent(), true), true);
 
         if (!$form->isValid() && !$form->isSubmitted()) {
             return $this->json($form->getErrors(), 400);
@@ -75,7 +75,7 @@ class ScheduleController extends AbstractController
 
         /** @var ScheduleDTO $dto */
         $dto = $form->getData();
-
+dump($dto);die;
         $schedule = new Schedule();
         $schedule->setCourier($dto->getCourier());
         $schedule->setCity($dto->getCity());
@@ -99,7 +99,7 @@ class ScheduleController extends AbstractController
     {
 
         $form = $this->createForm(ArrivalType::class);
-        $form->submit(json_decode($request->getContent()), true);
+        $form->submit(json_decode($request->getContent(), true), true);
         if (!$form->isSubmitted() && !$form->isValid()) {
             return $this->json($form->getErrors(), 400);
         }
@@ -112,7 +112,7 @@ class ScheduleController extends AbstractController
         $arrivalDate = $scheduleService->calcArrivalDate($dto->getCity(), $dto->getDate());
 
         return $this->json([
-            'arrival_date' => $arrivalDate,
+            'arrival_date' => $arrivalDate->format('Y-m-d'),
         ]);
     }
 
@@ -124,7 +124,7 @@ class ScheduleController extends AbstractController
     public function check(Request $request)
     {
         $form = $this->createForm(CheckType::class);
-        $form->submit(json_decode($request->getContent()), true);
+        $form->submit(json_decode($request->getContent(), true), true);
 
         if (!$form->isValid() && !$form->isSubmitted()) {
             return $this->json($form->getErrors(), 400);
@@ -133,7 +133,6 @@ class ScheduleController extends AbstractController
         $dto = $form->getData();
         $em = $this->getDoctrine()->getManager();
         $isBusy = $em->getRepository(Schedule::class)->isBusyCourier($dto->getCourier(), $dto->getDate());
-
-        return $this->json(['check' => $isBusy]);
+        return $this->json(['check' => !empty($isBusy)]);
     }
 }

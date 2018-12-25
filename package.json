@@ -16,6 +16,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "axios": "^0.18.0"
+        "axios": "^0.18.0",
+        "moment": "^2.23.0",
+        "vue2-datepicker": "^2.6.4",
+        "vuejs-datepicker": "^1.5.4"
     }
 }
