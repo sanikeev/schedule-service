@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Courier;
 use App\Entity\Schedule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,32 +20,19 @@ class ScheduleRepository extends ServiceEntityRepository
         parent::__construct($registry, Schedule::class);
     }
 
-    // /**
-    //  * @return Schedule[] Returns an array of Schedule objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function isBusyCourier(Courier $courier, \DateTimeInterface $date)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Schedule
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+        $qb = $this->createQueryBuilder('e');
+        return $qb->where('e.courier = :courier')
+            ->andWhere('e.startedAt <= :date')
+            ->andWhere('e.endedAt >= :date')
+            ->setParameters([
+                'courier' => $courier,
+                'date' => $date,
+            ])
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()
-        ;
+            ;
     }
-    */
 }
