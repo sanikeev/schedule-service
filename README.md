@@ -4,6 +4,7 @@
 * vuejs
 * symfony 4.2
 * docker-compose
+* phpunit
 
 ## HOW TO
 
@@ -15,7 +16,7 @@
 Это руководство я проверял на Ubuntu Linux если у вас другая операционная система, посмотрите руководство по докеру для вашей ОС.
 
 1. Клонируем этот репозиторий к себе в папку  
-`git clone git@github.com:sanikeev/discount-service.git vse`
+`git clone git@github.com:sanikeev/schedule-service.git vse`
 2. Запускаем докер
 `$ sudo docker-compose -f .docker/docker-compose.yaml up -d`
 3. Устанавливаем зависимости
@@ -26,7 +27,9 @@
 `$ sudo docker exec -i vse-fpm php bin/console doctrine:fixtures:load`
 6. Запускаем команду генерации расписания с 2015 года:
 `$ sudo docker exec -i vse-fpm php bin/console schedule:fill`
-7. Открываем проект в браузере по адресу `http://vse.lvh.me`
+7. Запускаем юнит-тесты чтобы убедиться что все ок:
+`$ sudo docker exec -i vse-fpm vendor/bin/phpunit`
+8. Открываем проект в браузере по адресу `http://vse.lvh.me`
 
 ## Чему в проекте не уделил внимание
 
