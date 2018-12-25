@@ -5,6 +5,10 @@ namespace App\Repository;
 use App\Entity\Courier;
 use App\Entity\Schedule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\DateType;
+use Doctrine\DBAL\Types\Type;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -32,7 +36,35 @@ class ScheduleRepository extends ServiceEntityRepository
             ])
             ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult()
-            ;
+            ->getOneOrNullResult();
+    }
+
+    public function getByPeriod(\DateTimeInterface $start, \DateTimeInterface $end, $page = 0)
+    {
+        $maxResults = 30;
+        $offset = $maxResults * $page;
+        $query = $this->createQueryBuilder('e')
+            ->join('App\Entity\City', 'c')
+            ->join('App\Entity\Courier', 'u')
+            ->where('e.startedAt >= :start')
+            ->andWhere('e.endedAt <= :endDate')
+            ->setParameter('start', $start->format('Y-m-d'))
+            ->setParameter('endDate', $end->format('Y-m-d'))
+            ->orderBy('e.startedAt', 'asc')
+            ->setMaxResults($maxResults)
+            ->setFirstResult($offset)
+            ->getQuery()
+
+        ;
+
+        $paginator = new Paginator($query, true);
+
+        $data = $paginator->getIterator();
+
+        return [
+            'total' => $paginator->count(),
+            'totalPages' => (int) ceil($paginator->count() / $maxResults),
+            'data' => $data,
+        ];
     }
 }

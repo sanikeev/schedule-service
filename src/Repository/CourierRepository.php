@@ -19,32 +19,9 @@ class CourierRepository extends ServiceEntityRepository
         parent::__construct($registry, Courier::class);
     }
 
-    // /**
-    //  * @return Courier[] Returns an array of Courier objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function list()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->createQueryBuilder('e')
+            ->getQuery()->getArrayResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Courier
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
