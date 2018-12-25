@@ -18,7 +18,9 @@
     "dependencies": {
         "axios": "^0.18.0",
         "moment": "^2.23.0",
+        "vee-validate": "^2.1.4",
         "vue2-datepicker": "^2.6.4",
-        "vuejs-datepicker": "^1.5.4"
+        "vuejs-datepicker": "^1.5.4",
+        "vuejs-paginate": "^2.1.0"
     }
 }

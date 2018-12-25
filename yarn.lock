@@ -5226,6 +5226,10 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
+vee-validate@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-2.1.4.tgz#dd86aab5e069e424236888a4618c2fa3c1db4386"
+
 vendors@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.2.tgz#7fcb5eef9f5623b156bcea89ec37d63676f21801"
@@ -5285,6 +5289,10 @@ vue@^2.5.21:
 vuejs-datepicker@^1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/vuejs-datepicker/-/vuejs-datepicker-1.5.4.tgz#dacdb5eb5ef44342c67cb59b93a0d5da9c1809b3"
+
+vuejs-paginate@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/vuejs-paginate/-/vuejs-paginate-2.1.0.tgz#93e1ad1539b713a688c7a2d3080bda60fcc6c77d"
 
 watchpack@^1.5.0:
   version "1.6.0"
